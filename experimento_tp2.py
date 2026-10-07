@@ -1,8 +1,14 @@
-# TP2 - Prueba de tiempos de busqueda
-
 import time
-from Index import Recorrido
 from busquedas import busqueda_secuencial, busqueda_binaria
+
+
+# Recorrido simple para hacer las pruebas del TP2
+class Recorrido:
+    def __init__(self, id_recorrido, nombre, distancia_km, dificultad):
+        self.id = id_recorrido
+        self.nombre = nombre
+        self.distancia_km = distancia_km
+        self.dificultad = dificultad
 
 
 # Crea recorridos de prueba
