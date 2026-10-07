@@ -15,7 +15,7 @@ Proyecto práctico para **Estructuras de Datos y Algoritmos en Python**.
 El proyecto está separado en dos archivos principales:
 
 - **`Index.py`**: Contiene las clases del sistema (`Entrenamiento`, `Recorrido` y `GestorMyRunning`).
-- **`main.py`**: Contiene el menú interactivo, los datos y las opciones del programa.
+- **`menu.py`**: Contiene el menú interactivo, los datos y las opciones del programa.
 
 ---
 
@@ -44,6 +44,7 @@ class GestorMyRunning:
         self.entrenamientos = [] 
         self.carreras = []       
         self.recorridos = []
+```
 
 ---
 
