@@ -79,3 +79,61 @@ Los tiempos pueden variar según la computadora donde se realice la prueba.
 En las pruebas vimos que la búsqueda secuencial tarda más a medida que aumenta la cantidad de recorridos, porque puede tener que revisar toda la lista.
 
 La búsqueda binaria resultó más rápida porque en cada paso descarta una parte de los recorridos. Para utilizarla, los datos tienen que estar ordenados por distancia.
+
+
+---
+
+## TP3 - Árbol binario de búsqueda
+
+Para este trabajo incorporamos un árbol binario de búsqueda (ABB) a My Running para organizar y buscar recorridos según su distancia en kilómetros.
+
+### Implementación
+
+Creamos el archivo `arbol_recorridos.py`, que contiene las clases `Nodo` y `ArbolRecorridos`.
+
+El árbol permite:
+
+- Insertar recorridos según su distancia.
+- Buscar recorridos por kilómetros.
+- Guardar varios recorridos que tengan la misma distancia.
+- Recorrer el árbol en inorden, preorden y postorden.
+
+### Integración con My Running
+
+Incorporamos el árbol a la opción 3 del menú, que permite buscar recorridos por distancia.
+
+Agregamos lugares de Zona Sur, como Quinta Rocca - UNaB, Parque Finky, Parque de Lomas y un circuito urbano de Longchamps.
+
+Las distancias son objetivos de entrenamiento sugeridos, excepto el circuito urbano, que se basa en un entrenamiento real de aproximadamente 8 km.
+
+### Pruebas
+
+Creamos `prueba_tp3.py` para comprobar la inserción, la búsqueda y los tres recorridos del árbol.
+
+También comprobamos que el programa puede encontrar varios recorridos con la misma distancia.
+
+### Comparación de tiempos
+
+Usamos `comparacion_tp3.py` para comparar la búsqueda secuencial del TP2 con la búsqueda mediante el árbol binario.
+
+| Cantidad de recorridos | Búsqueda secuencial | Árbol binario |
+|---|---|---|
+| 100 | 0.001377 ms | 0.000277 ms |
+| 1.000 | 0.013841 ms | 0.000456 ms |
+| 10.000 | 0.149765 ms | 0.000638 ms |
+
+Para las pruebas usamos recorridos generados automáticamente. Insertamos los datos mezclados en el árbol y repetimos cada búsqueda 1.000 veces para obtener un tiempo promedio.
+
+Los tiempos corresponden solamente a la búsqueda y no incluyen la construcción del árbol.
+
+### Complejidad
+
+- Búsqueda secuencial: **O(n)** en el peor caso.
+- Árbol binario de búsqueda: **O(log n)** cuando está razonablemente equilibrado.
+- En el peor caso, si el árbol queda muy desbalanceado, su búsqueda puede ser **O(n)**.
+
+### Conclusión
+
+En las pruebas vimos que la búsqueda con el árbol binario fue más rápida que la búsqueda secuencial, especialmente cuando aumentó la cantidad de recorridos.
+
+El árbol nos permite organizar los recorridos por distancia y encontrar distintas opciones para correr. También aprendimos que su rendimiento depende de cómo estén acomodados los datos dentro del árbol.
