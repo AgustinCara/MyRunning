@@ -1,4 +1,3 @@
-import Menu
 class Entrenamiento:
     def __init__(self, id_entrenamiento: int, fecha: str, distancia_km: float, tiempo_min: float, hr_promedio: int, lugar: str):
         self.id = id_entrenamiento
