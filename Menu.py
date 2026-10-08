@@ -1,15 +1,40 @@
 import Index
+from arbol_recorridos import ArbolRecorridos
 
 entrenamientos = [
     {"fecha": "01/09/2026", "distancia": 5.0, "tiempo": 34.8, "lugar": "Parque Municipal"},
     {"fecha": "04/09/2026", "distancia": 10.0, "tiempo": 72.6, "lugar": "Costanera"}
 ]
 
+
 recorridos = [
-    {"nombre": "Circuito Parque A", "distancia": 7.8, "dificultad": "Fácil"},
-    {"nombre": "Circuito Costanera", "distancia": 8.2, "dificultad": "Media"},
-    {"nombre": "Reserva Ecológica", "distancia": 10.5, "dificultad": "Media"}
+    {"nombre": "Quinta Rocca - UNaB", "distancia": 2.0, "dificultad": "Fácil"},
+    {"nombre": "Quinta Rocca - UNaB", "distancia": 3.0, "dificultad": "Fácil"},
+    {"nombre": "Parque Finky", "distancia": 3.0, "dificultad": "Fácil"},
+    {"nombre": "Parque Finky", "distancia": 5.0, "dificultad": "Media"},
+    {"nombre": "Parque de Lomas", "distancia": 5.0, "dificultad": "Fácil"},
+    {"nombre": "Parque de Lomas", "distancia": 7.0, "dificultad": "Media"},
+    {"nombre": "Polideportivo de Burzaco", "distancia": 3.0, "dificultad": "Fácil"},
+    {"nombre": "Polideportivo de Burzaco", "distancia": 5.0, "dificultad": "Media"},
+    {"nombre": "Parque Ramón Carrillo", "distancia": 2.7, "dificultad": "Fácil"},
+    {"nombre": "Parque Ramón Carrillo", "distancia": 5.0, "dificultad": "Media"},
+    {"nombre": "Plaza Brown - Adrogué", "distancia": 2.0, "dificultad": "Fácil"},
+    {"nombre": "Plaza Brown - Adrogué", "distancia": 3.0, "dificultad": "Fácil"},
+    {"nombre": "Circuito urbano de Longchamps", "distancia": 8.0, "dificultad": "Media"}
 ]
+
+
+# Cargamos los recorridos en el arbol
+arbol = ArbolRecorridos()
+
+for i, r in enumerate(recorridos):
+    recorrido = Index.Recorrido(
+        i + 1,
+        r["nombre"],
+        r["distancia"],
+        r["dificultad"]
+    )
+    arbol.insertar(recorrido)
 
 # Menú principal
 while True:
@@ -43,16 +68,19 @@ while True:
         print("Total de entrenamientos:", len(entrenamientos))
         print("Kilómetros totales:", total_km, "km")
 
-    # 3. Buscar / Filtrar Recorridos
+    # 3. Buscar recorridos con el arbol
     elif opcion == "3":
         print("\n--- BUSCAR RECORRIDOS ---")
         dist_deseada = float(input("¿Cuántos km querés correr?: "))
-        
-        print("Recorridos recomendados (cerca de tu objetivo):")
-        for r in recorridos:
-            # Muestra los que estén a +/- 2 km de diferencia
-            if abs(r["distancia"] - dist_deseada) <= 2.0:
-                print("-", r["nombre"], "(", r["distancia"], "km ) -", r["dificultad"])
+
+        encontrados = arbol.buscar(dist_deseada)
+
+        if encontrados:
+            print("Recorridos encontrados:")
+            for r in encontrados:
+                print("-", r.nombre, "(", r.distancia_km, "km ) -", r.dificultad)
+        else:
+            print("No hay recorridos con esa distancia exacta.")
 
     # 4. Próximas Carreras
     elif opcion == "4":
