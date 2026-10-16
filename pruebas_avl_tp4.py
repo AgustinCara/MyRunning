@@ -34,3 +34,29 @@ for i, distancia in enumerate(distancias_descendentes):
 print("Raíz:", arbol_descendente.raiz.recorridos[0].distancia_km)
 print("Izquierda:", arbol_descendente.raiz.izquierda.recorridos[0].distancia_km)
 print("Derecha:", arbol_descendente.raiz.derecha.recorridos[0].distancia_km)    
+print("\n--- PRUEBA DE ROTACION DOBLE ---")
+
+arbol_doble = ArbolAVL()
+
+distancias_dobles = [3, 8, 5]
+
+for i, distancia in enumerate(distancias_dobles):
+    recorrido = Recorrido(i + 1, "Recorrido de prueba", distancia, "Fácil")
+    arbol_doble.insertar(recorrido)
+
+print("Raíz:", arbol_doble.raiz.recorridos[0].distancia_km)
+print("Izquierda:", arbol_doble.raiz.izquierda.recorridos[0].distancia_km)
+print("Derecha:", arbol_doble.raiz.derecha.recorridos[0].distancia_km)
+print("\n--- SEGUNDA PRUEBA DE ROTACION DOBLE ---")
+
+arbol_doble_2 = ArbolAVL()
+
+distancias_dobles_2 = [8, 3, 5]
+
+for i, distancia in enumerate(distancias_dobles_2):
+    recorrido = Recorrido(i + 1, "Recorrido de prueba", distancia, "Fácil")
+    arbol_doble_2.insertar(recorrido)
+
+print("Raíz:", arbol_doble_2.raiz.recorridos[0].distancia_km)
+print("Izquierda:", arbol_doble_2.raiz.izquierda.recorridos[0].distancia_km)
+print("Derecha:", arbol_doble_2.raiz.derecha.recorridos[0].distancia_km)
