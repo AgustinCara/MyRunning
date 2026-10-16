@@ -137,3 +137,29 @@ Los tiempos corresponden solamente a la búsqueda y no incluyen la construcción
 En las pruebas vimos que la búsqueda con el árbol binario fue más rápida que la búsqueda secuencial, especialmente cuando aumentó la cantidad de recorridos.
 
 El árbol nos permite organizar los recorridos por distancia y encontrar distintas opciones para correr. También aprendimos que su rendimiento depende de cómo estén acomodados los datos dentro del árbol.
+
+
+## TP4 - Árbol AVL
+
+En esta etapa incorporamos un árbol AVL para organizar los recorridos de My Running según su distancia.
+
+A diferencia del árbol binario del TP3, el AVL utiliza rotaciones para mantenerse equilibrado cuando se agregan nuevos recorridos.
+
+### Pruebas realizadas
+
+Insertamos las distancias 3, 5, 8, 10, 12, 15 y 18 km en ambos árboles, en orden ascendente.
+
+Luego buscamos el recorrido de 18 km y comparamos los resultados.
+
+| Prueba | Árbol binario | Árbol AVL |
+|---|---|---|
+| Nodos recorridos | 7 | 3 |
+| Tiempo de 10.000 búsquedas | 0,004076 s | 0,001660 s |
+
+### Conclusión
+
+En esta prueba, el árbol AVL necesitó recorrer menos nodos y realizó las búsquedas en menos tiempo que el árbol binario.
+
+Esto ocurrió porque los recorridos se insertaron en orden ascendente, provocando que el árbol binario quedara desbalanceado. El AVL, en cambio, realizó rotaciones para mantener su equilibrio.
+
+Los tiempos pueden variar entre ejecuciones y corresponden a esta prueba específica.
