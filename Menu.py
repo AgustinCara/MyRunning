@@ -1,5 +1,6 @@
 import Index
 from arbol_recorridos import ArbolRecorridos
+from arbol_general import ArbolGeneral, NodoGeneral
 
 entrenamientos = [
     {"fecha": "01/09/2026", "distancia": 5.0, "tiempo": 34.8, "lugar": "Parque Municipal"},
@@ -36,6 +37,21 @@ for i, r in enumerate(recorridos):
     )
     arbol.insertar(recorrido)
 
+
+# Cargamos las categorias en el arbol general: Recorridos > Dificultad > Lugar > Distancia
+categorias = ArbolGeneral("Recorridos")
+
+for recorrido in arbol.inorden():
+    nodo_dificultad = categorias.raiz.buscar_hijo(recorrido.dificultad)
+    if nodo_dificultad is None:
+        nodo_dificultad = categorias.raiz.agregar_hijo(NodoGeneral(recorrido.dificultad))
+
+    nodo_lugar = nodo_dificultad.buscar_hijo(recorrido.nombre)
+    if nodo_lugar is None:
+        nodo_lugar = nodo_dificultad.agregar_hijo(NodoGeneral(recorrido.nombre))
+
+    nodo_lugar.agregar_hijo(NodoGeneral(str(recorrido.distancia_km) + " km", recorrido))
+
 # Menú principal
 while True:
     print("\n=== MY RUNNING ===")
@@ -43,6 +59,7 @@ while True:
     print("2. Ver estadísticas")
     print("3. Buscar recorridos")
     print("4. Próximas carreras")
+    print("5. Explorar categorías")
     print("0. Salir")
     
     opcion = input("Seleccione una opción: ")
@@ -87,6 +104,46 @@ while True:
         print("\n--- PRÓXIMAS CARRERAS ---")
         print("1. Maratón de la Ciudad (21 km) - 15/10/2026")
         print("2. Carrera de las Luces (10 km) - 02/11/2026")
+
+    # 5. Explorar categorías con el arbol general
+    elif opcion == "5":
+        while True:
+            print("\n--- EXPLORAR CATEGORÍAS ---")
+            print("1. Ver árbol completo")
+            print("2. Buscar categoría o lugar")
+            print("3. Ver recorridos del árbol")
+            print("0. Volver")
+
+            sub_opcion = input("Seleccione una opción: ")
+
+            if sub_opcion == "1":
+                print()
+                print(categorias.mostrar())
+
+            elif sub_opcion == "2":
+                texto = input("¿Qué querés buscar? (ej: Media, Finky): ")
+                encontrados = categorias.buscar(texto)
+
+                if encontrados:
+                    for nodo in encontrados:
+                        print("\n" + " > ".join(categorias.camino(nodo)))
+                        for r in categorias.recorridos_de(nodo):
+                            print("   -", r.nombre, "(", r.distancia_km, "km ) -", r.dificultad)
+                else:
+                    print("No se encontró ninguna categoría con ese nombre.")
+
+            elif sub_opcion == "3":
+                print("\nPreorden:", " -> ".join(categorias.preorden()))
+                print("\nPostorden:", " -> ".join(categorias.postorden()))
+                print("\nPor niveles:", " -> ".join(categorias.por_niveles()))
+                print("\nAltura del árbol:", categorias.altura())
+                print("Cantidad de nodos:", categorias.cantidad_nodos())
+
+            elif sub_opcion == "0":
+                break
+
+            else:
+                print("Opción inválida, intentá de nuevo.")
 
     # 0. Salir
     elif opcion == "0":

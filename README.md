@@ -163,3 +163,65 @@ En esta prueba, el árbol AVL necesitó recorrer menos nodos y realizó las bús
 Esto ocurrió porque los recorridos se insertaron en orden ascendente, provocando que el árbol binario quedara desbalanceado. El AVL, en cambio, realizó rotaciones para mantener su equilibrio.
 
 Los tiempos pueden variar entre ejecuciones y corresponden a esta prueba específica.
+
+
+## TP5 - Árbol general (n-ario)
+
+En esta etapa incorporamos un árbol general para organizar los recorridos de My Running en categorías.
+
+A diferencia del ABB y del AVL, que tienen como máximo dos hijos por nodo y sirven para ordenar por distancia, en el árbol general cada nodo puede tener **cualquier cantidad de hijos**. Por eso sirve para representar una jerarquía.
+
+### Jerarquía elegida
+
+```
+Recorridos
+├── Fácil
+│   ├── Quinta Rocca - UNaB
+│   │   ├── 2.0 km
+│   │   └── 3.0 km
+│   ├── Parque Finky
+│   │   └── 3.0 km
+│   └── ...
+└── Media
+    ├── Parque de Lomas
+    │   └── 7.0 km
+    └── ...
+```
+
+- **Raíz:** todos los recorridos.
+- **Nivel 1:** la dificultad (Fácil, Media).
+- **Nivel 2:** el lugar donde se corre.
+- **Hojas:** cada distancia disponible en ese lugar. Solo las hojas guardan el objeto `Recorrido`.
+
+### Implementación
+
+Creamos el archivo `arbol_general.py`, que contiene las clases `NodoGeneral` y `ArbolGeneral`. Cada nodo guarda su nombre y una lista de hijos.
+
+El árbol permite:
+
+- Agregar hijos a cualquier nodo.
+- Buscar categorías o lugares por nombre (sin importar mayúsculas).
+- Mostrar el camino desde la raíz hasta un nodo (ej: `Recorridos > Media > Parque Finky`).
+- Obtener todos los recorridos que hay debajo de una categoría.
+- Recorrer el árbol en preorden, postorden y por niveles.
+- Calcular la altura y la cantidad de nodos.
+- Dibujar el árbol en la terminal.
+
+El árbol se arma automáticamente a partir de la lista de recorridos del menú.
+
+### Integración con My Running
+
+Agregamos la opción **5. Explorar categorías** al menú, que permite ver el árbol completo, buscar una categoría o lugar y ver los distintos recorridos del árbol.
+
+### Pruebas
+
+Creamos `prueba_tp5.py` para comprobar la construcción del árbol, la búsqueda, el camino, los recorridos y la altura.
+
+### Complejidad
+
+- Búsqueda por nombre: **O(n)**, porque hay que revisar todos los nodos (el árbol no está ordenado).
+- Preorden, postorden y por niveles: **O(n)**, porque visitan cada nodo una vez.
+
+### Conclusión
+
+El árbol general no sirve para buscar más rápido como el ABB o el AVL, sino para representar cómo se relacionan los datos. Nos permitió agrupar los recorridos por dificultad y lugar, y navegarlos de forma más natural desde el menú.
