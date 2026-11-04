@@ -1,6 +1,15 @@
 import Index
 from arbol_recorridos import ArbolRecorridos
 from arbol_general import ArbolGeneral, NodoGeneral
+from heap_entrenamientos import HeapEntrenamientos
+from Index import Entrenamiento
+
+def mostrar_ritmo(ritmo):
+    segundos_totales = round(ritmo * 60)
+    minutos = segundos_totales // 60
+    segundos = segundos_totales % 60
+
+    return f"{minutos}:{segundos:02d}"
 
 entrenamientos = [
     {"fecha": "01/09/2026", "distancia": 5.0, "tiempo": 34.8, "lugar": "Parque Municipal"},
@@ -60,6 +69,7 @@ while True:
     print("3. Buscar recorridos")
     print("4. Próximas carreras")
     print("5. Explorar categorías")
+    print("6. Ranking de mejores ritmos")
     print("0. Salir")
     
     opcion = input("Seleccione una opción: ")
@@ -144,6 +154,38 @@ while True:
 
             else:
                 print("Opción inválida, intentá de nuevo.")
+
+    # 6. Ranking de mejores ritmos
+    elif opcion == "6":
+        print("\n--- TOP 3 MEJORES RITMOS ---")
+
+        heap = HeapEntrenamientos()
+
+        for i, e in enumerate(entrenamientos):
+            entrenamiento = Entrenamiento(
+                i + 1,
+                e["fecha"],
+                e["distancia"],
+                e["tiempo"],
+                0,
+                e["lugar"]
+            )
+
+            if entrenamiento.distancia_km > 0:
+                heap.insertar(entrenamiento)
+
+        for puesto in range(1, 4):
+            mejor = heap.extraer_mejor()
+
+            if mejor is None:
+                break
+
+            print(
+                puesto, "-",
+                mejor.lugar,
+                "- Distancia:", mejor.distancia_km, "km",
+                "- Ritmo:", mostrar_ritmo(mejor.ritmo), "min/km"
+            )
 
     # 0. Salir
     elif opcion == "0":
