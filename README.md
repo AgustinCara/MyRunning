@@ -173,7 +173,7 @@ A diferencia del ABB y del AVL, que tienen como máximo dos hijos por nodo y sir
 
 ### Jerarquía elegida
 
-```
+```text
 Recorridos
 ├── Fácil
 │   ├── Quinta Rocca - UNaB
@@ -200,8 +200,8 @@ Creamos el archivo `arbol_general.py`, que contiene las clases `NodoGeneral` y `
 El árbol permite:
 
 - Agregar hijos a cualquier nodo.
-- Buscar categorías o lugares por nombre (sin importar mayúsculas).
-- Mostrar el camino desde la raíz hasta un nodo (ej: `Recorridos > Media > Parque Finky`).
+- Buscar categorías o lugares por nombre, sin importar mayúsculas.
+- Mostrar el camino desde la raíz hasta un nodo (ejemplo: `Recorridos > Media > Parque Finky`).
 - Obtener todos los recorridos que hay debajo de una categoría.
 - Recorrer el árbol en preorden, postorden y por niveles.
 - Calcular la altura y la cantidad de nodos.
@@ -211,17 +211,117 @@ El árbol se arma automáticamente a partir de la lista de recorridos del menú.
 
 ### Integración con My Running
 
-Agregamos la opción **5. Explorar categorías** al menú, que permite ver el árbol completo, buscar una categoría o lugar y ver los distintos recorridos del árbol.
+Agregamos la opción **5. Explorar categorías** al menú principal.
+
+Esta opción permite visualizar el árbol completo, buscar una categoría o lugar y consultar los recorridos que pertenecen a cada categoría.
 
 ### Pruebas
 
 Creamos `prueba_tp5.py` para comprobar la construcción del árbol, la búsqueda, el camino, los recorridos y la altura.
 
+Realizamos una prueba con las categorías Fácil y Media, incorporando lugares y distintas distancias.
+
+Obtuvimos los siguientes resultados:
+
+- La búsqueda de Plaza encontró correctamente su ubicación dentro del árbol.
+- Se recuperaron los recorridos de 2 y 3 km de la categoría Fácil.
+- Los recorridos en preorden, postorden y por niveles funcionaron correctamente.
+- La altura del árbol fue de **4 niveles**.
+- La cantidad total de nodos fue de **8**.
+
+También comprobamos desde el menú que la opción 5 muestra correctamente los lugares y las distancias agrupados por dificultad.
+
 ### Complejidad
 
-- Búsqueda por nombre: **O(n)**, porque hay que revisar todos los nodos (el árbol no está ordenado).
+- Búsqueda por nombre: **O(n)**, porque puede ser necesario revisar todos los nodos.
 - Preorden, postorden y por niveles: **O(n)**, porque visitan cada nodo una vez.
+- Cantidad de nodos: **O(n)**, porque utiliza el recorrido en preorden.
 
 ### Conclusión
 
-El árbol general no sirve para buscar más rápido como el ABB o el AVL, sino para representar cómo se relacionan los datos. Nos permitió agrupar los recorridos por dificultad y lugar, y navegarlos de forma más natural desde el menú.
+El árbol general no sirve para buscar más rápido como el ABB o el AVL, sino para representar cómo se relacionan los datos.
+
+Nos permitió agrupar los recorridos por dificultad y lugar, y navegarlos de forma más natural desde el menú.
+
+---
+
+## TP6 - Heap y ranking de entrenamientos
+
+En esta etapa incorporamos una estructura de datos **Heap (montículo)** para organizar los entrenamientos de My Running según su ritmo y obtener un ranking de los mejores resultados.
+
+Elegimos implementar un **Min-Heap**, porque cuanto menor es el tiempo que tardamos en recorrer un kilómetro, mejor es el ritmo.
+
+### Implementación
+
+Creamos el archivo `heap_entrenamientos.py`, que contiene la clase `HeapEntrenamientos`.
+
+Implementamos el Heap manualmente, sin utilizar la biblioteca `heapq`, para comprender cómo funciona esta estructura.
+
+El Heap permite:
+
+- Insertar entrenamientos.
+- Comparar los entrenamientos según su ritmo.
+- Reorganizar los elementos para mantener la propiedad del Min-Heap.
+- Extraer el entrenamiento con mejor ritmo.
+- Obtener los tres mejores entrenamientos.
+
+Para mantener el orden utilizamos los métodos `subir()` y `bajar()`, que intercambian elementos cuando es necesario.
+
+### Integración con My Running
+
+Agregamos la opción **6. Ranking de mejores ritmos** al menú principal.
+
+Esta opción toma los entrenamientos registrados, los incorpora al Heap y muestra los tres mejores resultados, indicando el lugar, la distancia y el ritmo expresado en minutos y segundos por kilómetro.
+
+Los entrenamientos nuevos también participan del ranking mientras el programa está en ejecución.
+
+### Pruebas
+
+Creamos `prueba_heap_tp6.py` para comprobar el funcionamiento de la estructura.
+
+Utilizamos siete entrenamientos de ejemplo basados en registros reales, sin incluir datos personales.
+
+Comprobamos que el Heap identifica correctamente el mejor ritmo y permite extraer los tres mejores entrenamientos en orden.
+
+También verificamos desde el menú que un entrenamiento nuevo con mejor ritmo pasa a ocupar el primer puesto.
+
+### Comparación de tiempos
+
+Creamos `comparacion_tp6.py` para comparar dos maneras de obtener los tres mejores entrenamientos:
+
+- **Min-Heap:** insertar los entrenamientos y extraer los tres mejores.
+- **sorted():** ordenar todos los entrenamientos por ritmo y seleccionar los tres primeros.
+
+Realizamos pruebas con 1.000 y 10.000 entrenamientos generados automáticamente.
+
+| Cantidad de entrenamientos | Min-Heap | sorted() |
+|---|---|---|
+| 1.000 | 0,000568 s | 0,000244 s |
+| 10.000 | 0,007203 s | 0,001752 s |
+
+Además, repetimos cinco veces la comparación con 10.000 entrenamientos para obtener un tiempo promedio.
+
+Los resultados fueron:
+
+- **Min-Heap:** 0,013843 segundos.
+- **sorted():** 0,001659 segundos.
+
+En nuestras pruebas, `sorted()` resultó más rápido que la implementación manual del Heap.
+
+Los tiempos pueden variar según la computadora y las condiciones de ejecución.
+
+### Complejidad
+
+- Insertar un entrenamiento en el Heap: **O(log n)**.
+- Extraer el mejor entrenamiento: **O(log n)**.
+- Consultar el mejor elemento sin extraerlo: **O(1)**.
+- Construir el Heap mediante inserciones sucesivas: **O(n log n)**.
+- Ordenar todos los entrenamientos con `sorted()`: **O(n log n)** en el peor caso.
+
+### Conclusión
+
+El Heap nos permitió incorporar una estructura de prioridad a My Running y obtener un ranking de entrenamientos según el ritmo.
+
+Aunque `sorted()` fue más rápido en nuestros experimentos, el Heap resulta útil cuando necesitamos incorporar nuevos elementos y consultar o extraer repetidamente el de mayor prioridad, sin ordenar toda la colección en cada operación.
+
+Esta etapa nos permitió comprender el funcionamiento de los montículos y comparar su comportamiento con una herramienta de ordenamiento de Python.
