@@ -96,6 +96,10 @@ Como habíamos registrado un entrenamiento nuevo de 5 km en 35 minutos, queríam
 | 2 | Parque Finky | 5 km | 7:00 min/km |
 | 3 | Costanera | 10 km | 7:16 min/km |
 
+**Evidencia de la prueba:**
+
+![Ranking de mejores ritmos de My Running](evidencias/ranking_heap.png)
+
 El entrenamiento registrado durante la prueba apareció en el segundo puesto.
 
 Comprobamos que el programa ordenaba los resultados correctamente, considerando que un ritmo menor representa un entrenamiento más rápido.
