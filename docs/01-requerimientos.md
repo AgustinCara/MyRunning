@@ -68,7 +68,41 @@ Por ejemplo, al considerar los siete registros anteriores, los tres mejores ritm
 
 Este ejemplo nos permitió relacionar una estructura de datos estudiada en clase con una necesidad concreta del proyecto.
 
-## 4. Objetivo general
+## 4. Recorridos que tomamos como referencia
+
+Para My Running elegimos tres lugares de nuestra zona que ofrecen diferentes posibilidades para salir a correr. La idea fue trabajar con recorridos reales y no solamente con ejemplos inventados.
+
+### Longchamps – Villa París
+
+Este es uno de los recorridos que utilizamos como referencia a partir de la experiencia personal de una integrante del grupo.
+
+El trayecto pasa por Boulevard Yapeyú, Avenida República Argentina y Avenida Juan B. Justo. Una de sus ventajas es que podemos adaptar la distancia según el entrenamiento: algunos días hacemos recorridos más cortos y otros extendemos el trayecto.
+
+También utilizamos Google Maps para medir distintas alternativas y comparar las distancias aproximadas.
+
+### Parque Finky – Turdera
+
+Elegimos Parque Finky porque es un espacio que permite correr dando vueltas a un circuito, sin necesidad de recorrer calles y avenidas.
+
+Además, cuenta con espacios para realizar ejercicios y baños públicos.
+
+Nos pareció una buena alternativa para incluir en My Running porque permite organizar entrenamientos según la cantidad de vueltas y la distancia que queremos completar.
+
+### Quinta Rocca – Burzaco
+
+También elegimos Quinta Rocca porque es uno de los espacios verdes de nuestra zona que ofrece una alternativa para salir a correr o caminar.
+
+Cuenta con caminos rodeados de árboles, sectores amplios para realizar actividad física y baños públicos.
+
+Nos interesó incorporarlo porque permite ofrecer otra opción de entrenamiento, diferente a los recorridos por calles y avenidas.
+
+### ¿Por qué elegimos estos lugares?
+
+Al comparar los tres recorridos, observamos que no todos ofrecen las mismas posibilidades. En algunos podemos modificar la distancia avanzando por diferentes calles, mientras que en otros podemos sumar kilómetros dando vueltas a un circuito.
+
+Esta diferencia nos ayudó a pensar cómo organizar los recorridos dentro de My Running y qué información podría resultar útil para quienes utilizan la aplicación.
+
+## 5. Objetivo general
 
 Desarrollar una aplicación en Python que permita organizar entrenamientos y recorridos de running, consultar resultados y aplicar las estructuras de datos y los algoritmos estudiados durante la cursada.
 
@@ -83,7 +117,7 @@ Desarrollar una aplicación en Python que permita organizar entrenamientos y rec
 - Comparar algoritmos y analizar sus tiempos de ejecución.
 - Documentar el desarrollo y los resultados obtenidos.
 
-## 5. Requerimientos funcionales
+## 6. Requerimientos funcionales
 
 Los requerimientos funcionales describen las acciones que debe permitir My Running.
 
@@ -115,7 +149,7 @@ El usuario debe poder acceder a las funcionalidades mediante un menú de opcione
 
 El proyecto debe incluir pruebas que permitan comprobar el funcionamiento de las estructuras de datos y comparar su rendimiento.
 
-## 6. Requerimientos no funcionales
+## 7. Requerimientos no funcionales
 
 **RNF01 - Lenguaje de programación**
 
@@ -141,7 +175,7 @@ El desarrollo debe mantenerse en GitHub para registrar los cambios y permitir el
 
 Las estructuras y funcionalidades implementadas deben poder verificarse mediante pruebas de ejecución.
 
-## 7. Alcance del proyecto
+## 8. Alcance del proyecto
 
 ### Funcionalidades implementadas
 
@@ -170,13 +204,13 @@ El proyecto continuará ampliándose de acuerdo con las siguientes etapas del tr
 
 Estas funcionalidades se documentarán cuando estén implementadas y probadas.
 
-## 8. Usuarios del sistema
+## 9. Usuarios del sistema
 
 My Running está pensado principalmente para personas que practican running y desean organizar sus entrenamientos, consultar recorridos y comparar sus resultados.
 
 También funciona como un proyecto educativo que permite demostrar cómo diferentes estructuras de datos pueden resolver problemas dentro de una misma aplicación.
 
-## 9. Evidencias del proyecto
+## 10. Evidencias del proyecto
 
 Para acompañar la documentación, reunimos registros reales de entrenamientos y resultados de las pruebas realizadas en Python.
 
@@ -190,7 +224,19 @@ Los datos originales de distancia, tiempo y ritmo se presentan en la tabla de la
 
 También incorporaremos capturas de la terminal que permitan observar cómo el programa registra entrenamientos, organiza recorridos y muestra el ranking.
 
-## 10. Conclusión
+### Evidencia 02 - Investigación de recorridos
+
+Para elegir los recorridos utilizamos nuestra experiencia y consultamos imágenes y mapas de los lugares seleccionados.
+
+En el caso de Longchamps, medimos diferentes trayectos con Google Maps para observar cómo cambia la distancia según el recorrido.
+
+Para Quinta Rocca, consultamos fotografías del lugar que muestran sus espacios verdes y caminos.
+
+![Quinta Rocca - Burzaco](evidencias/quinta_rocca.jpg)
+
+*Fuente de las fotografías de Quinta Rocca: [Google Maps – Quinta Rocca](https://maps.app.goo.gl/EQmJHUeJpeTgTjUNA).*
+
+## 11. Conclusión
 
 My Running nos permitió relacionar los contenidos de Estructuras de Datos y Algoritmos con una actividad concreta.
 
