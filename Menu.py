@@ -109,11 +109,20 @@ while True:
         else:
             print("No hay recorridos con esa distancia exacta.")
 
+
     # 4. Próximas Carreras
     elif opcion == "4":
         print("\n--- PRÓXIMAS CARRERAS ---")
-        print("1. Maratón de la Ciudad (21 km) - 15/10/2026")
-        print("2. Carrera de las Luces (10 km) - 02/11/2026")
+        print("1. Circuito de las Estaciones - Verano")
+        print("   Fecha: 20/12/2026")
+        print("   Distancia: 10 km")
+        print("   Lugar: Av. Figueroa Alcorta y Av. Monroe, CABA")
+
+        print("\n2. San Silvestre Buenos Aires Carnaval")
+        print("   Fecha: 31/12/2026")
+        print("   Distancia: 8 km")
+        print("   Lugar: Av. 9 de Julio y Perón, CABA")
+
 
     # 5. Explorar categorías con el arbol general
     elif opcion == "5":
