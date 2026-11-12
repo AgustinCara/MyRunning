@@ -129,7 +129,7 @@ flowchart LR
     A --- CU3
     A --- CU4
     A --- CU5
-    ```
+```
 
 El actor principal es el corredor o corredora, que interactúa con las funcionalidades disponibles en My Running.
 
