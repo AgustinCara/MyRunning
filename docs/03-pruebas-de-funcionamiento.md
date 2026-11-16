@@ -137,6 +137,87 @@ Después ejecutamos nuevamente el programa y comprobamos que la opción 4 mostra
 
 Actualmente, las carreras se cargan manualmente en el código. El programa no consulta automáticamente calendarios ni páginas de eventos.
 
+### Prueba 7 - Recomendación de recorridos
+
+Para esta funcionalidad pensamos en un corredor que quiere
+conocer otros lugares para entrenar, pero que tengan una
+distancia similar a la que suele realizar.
+
+Decidimos conectar los recorridos mediante un grafo, siempre
+que la diferencia entre sus distancias no supere los 2 km.
+
+Seleccionamos la opción 7 del menú y realizamos dos pruebas:
+
+- Circuito urbano de Longchamps (8 km).
+- Parque Finky (5 km).
+
+**Resultado obtenido:**
+
+En el primer caso, el programa recomendó el Parque de Lomas
+de 7 km. En el segundo caso, mostró ocho recorridos
+relacionados.
+
+**Evidencia de la prueba:**
+
+![Recomendación de recorridos](evidencias/grafo_tp7.png)
+
+Comprobamos que las recomendaciones respetaban la diferencia
+de distancia que habíamos establecido.
+
+
+### Prueba 8 - Progresión de recorridos (BFS)
+
+Para esta funcionalidad nos basamos en una situación habitual
+del running: comenzar corriendo una distancia corta e ir
+aumentando los kilómetros progresivamente.
+
+Seleccionamos la opción 8 del menú y luego BFS.
+
+Elegimos como recorrido inicial Parque Finky de 3 km y como
+destino el Circuito urbano de Longchamps de 8 km.
+
+**Resultado obtenido:**
+
+- Parque Finky: 3 km.
+- Parque Finky: 5 km.
+- Parque de Lomas: 7 km.
+- Circuito urbano de Longchamps: 8 km.
+
+Cantidad de conexiones: 3.
+
+**Evidencia de la prueba:**
+
+![Prueba BFS](evidencias/bfs_tp8.png)
+
+Comprobamos que el programa podía encontrar una progresión
+de recorridos utilizando la menor cantidad de conexiones
+posibles.
+
+
+### Prueba 9 - Exploración de recorridos (DFS)
+
+Aprovechando el grafo que habíamos desarrollado, quisimos
+comprobar si era posible explorar todos los recorridos
+conectados con un lugar determinado.
+
+Seleccionamos la opción 8 del menú, luego DFS y elegimos
+el Circuito urbano de Longchamps.
+
+**Resultado obtenido:**
+
+El programa visitó los 13 recorridos disponibles sin
+repetir ninguno.
+
+**Evidencia de la prueba:**
+
+![Prueba DFS](evidencias/dfs_tp8.png)
+
+También realizamos pruebas independientes para comprobar
+el comportamiento de los algoritmos ante recorridos
+aislados e identificadores inexistentes.
+
+Todas las pruebas realizadas fueron exitosas.
+
 ## 3. Resumen de resultados
 
 | Funcionalidad | Resultado |
