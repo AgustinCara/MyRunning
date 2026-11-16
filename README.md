@@ -138,7 +138,6 @@ En las pruebas vimos que la búsqueda con el árbol binario fue más rápida que
 
 El árbol nos permite organizar los recorridos por distancia y encontrar distintas opciones para correr. También aprendimos que su rendimiento depende de cómo estén acomodados los datos dentro del árbol.
 
-
 ## TP4 - Árbol AVL
 
 En esta etapa incorporamos un árbol AVL para organizar los recorridos de My Running según su distancia.
@@ -163,7 +162,6 @@ En esta prueba, el árbol AVL necesitó recorrer menos nodos y realizó las bús
 Esto ocurrió porque los recorridos se insertaron en orden ascendente, provocando que el árbol binario quedara desbalanceado. El AVL, en cambio, realizó rotaciones para mantener su equilibrio.
 
 Los tiempos pueden variar entre ejecuciones y corresponden a esta prueba específica.
-
 
 ## TP5 - Árbol general (n-ario)
 
@@ -325,3 +323,101 @@ El Heap nos permitió incorporar una estructura de prioridad a My Running y obte
 Aunque `sorted()` fue más rápido en nuestros experimentos, el Heap resulta útil cuando necesitamos incorporar nuevos elementos y consultar o extraer repetidamente el de mayor prioridad, sin ordenar toda la colección en cada operación.
 
 Esta etapa nos permitió comprender el funcionamiento de los montículos y comparar su comportamiento con una herramienta de ordenamiento de Python.
+
+## TP7 - Grafos
+
+Se implementó un grafo de recorridos para recomendar circuitos de running con distancias similares.
+
+### Modelo del grafo
+
+- Vértices: recorridos de running identificados mediante un ID único.
+- Aristas: conexiones entre recorridos cuya diferencia de distancia es menor o igual a 2 km.
+- Grafo no dirigido: la relación entre dos recorridos es recíproca.
+- Grafo no ponderado: las conexiones no tienen un peso asociado.
+- Representación: lista de adyacencia mediante diccionarios.
+
+Se eligió la lista de adyacencia porque permite consultar directamente los vecinos de cada recorrido y almacenar las conexiones existentes. Con los datos actuales, el grafo tiene 13 vértices y 48 aristas, por lo que una matriz también sería una alternativa razonable. Se priorizó la facilidad de consultar vecinos y realizar futuros recorridos BFS y DFS.
+
+### Funcionalidad incorporada
+
+Se agregó al menú principal la opción 7: Recomendar recorridos.
+
+### Pruebas realizadas
+
+- Carga de vértices.
+- Generación automática de aristas.
+- Conexiones bidireccionales.
+- Recomendación de múltiples recorridos.
+- Vértices aislados.
+
+Archivos incorporados:
+- grafo_recorridos.py
+- prueba_tp7.py
+
+## TP8 - Recorridos BFS y DFS
+
+Se implementaron dos algoritmos de recorrido de grafos
+para explorar las conexiones entre los circuitos de running.
+
+### BFS - Búsqueda por anchura
+
+Permite encontrar el camino con la menor cantidad de
+conexiones entre dos recorridos.
+
+Utiliza una cola FIFO para explorar los vértices por niveles.
+
+Caso de uso:
+Un corredor que realiza 3 km quiere encontrar una
+progresión de recorridos hasta llegar a los 8 km.
+
+Resultado:
+Parque Finky (3 km)
+-> Parque Finky (5 km)
+-> Parque de Lomas (7 km)
+-> Longchamps (8 km).
+
+### DFS - Búsqueda por profundidad
+
+Permite explorar todos los recorridos relacionados
+directa o indirectamente con un recorrido inicial.
+
+Se implementó mediante recursividad y un conjunto
+de vértices visitados para evitar ciclos.
+
+Caso de uso:
+Explorar todos los recorridos conectados con el
+Circuito urbano de Longchamps.
+
+Resultado:
+13 recorridos visitados sin repeticiones.
+
+### Análisis de complejidad
+
+- Complejidad temporal BFS: O(V + A).
+- Complejidad temporal DFS: O(V + A).
+- Complejidad espacial auxiliar de ambos: O(V).
+
+V representa la cantidad de vértices.
+A representa la cantidad de aristas.
+
+BFS conviene cuando buscamos un camino con la menor
+cantidad de conexiones en un grafo no ponderado.
+
+DFS conviene cuando queremos explorar en profundidad
+todos los vértices alcanzables desde un punto inicial.
+
+### Pruebas realizadas
+
+- Búsqueda del camino mínimo en cantidad de aristas.
+- Exploración de vértices conectados.
+- Vértices aislados.
+- Identificadores inexistentes.
+- Origen y destino iguales.
+- Prevención de ciclos y repeticiones.
+
+### Archivos
+
+- grafo_recorridos.py (actualizado).
+- Menu.py (actualizado).
+- prueba_tp8.py (nuevo).
+

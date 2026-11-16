@@ -1,3 +1,4 @@
+from grafo_recorridos import GrafoRecorridos
 import Index
 from arbol_recorridos import ArbolRecorridos
 from arbol_general import ArbolGeneral, NodoGeneral
@@ -34,8 +35,9 @@ recorridos = [
 ]
 
 
-# Cargamos los recorridos en el arbol
+# Cargamos los recorridos en el arbol y en el grafo
 arbol = ArbolRecorridos()
+grafo = GrafoRecorridos()
 
 for i, r in enumerate(recorridos):
     recorrido = Index.Recorrido(
@@ -45,21 +47,32 @@ for i, r in enumerate(recorridos):
         r["dificultad"]
     )
     arbol.insertar(recorrido)
+    grafo.agregar_vertice(recorrido)
 
+# TP7 - Conectamos los recorridos
+grafo.conectar_por_distancia()
 
-# Cargamos las categorias en el arbol general: Recorridos > Dificultad > Lugar > Distancia
+# TP5 - Árbol general de categorías
 categorias = ArbolGeneral("Recorridos")
 
 for recorrido in arbol.inorden():
     nodo_dificultad = categorias.raiz.buscar_hijo(recorrido.dificultad)
+
     if nodo_dificultad is None:
-        nodo_dificultad = categorias.raiz.agregar_hijo(NodoGeneral(recorrido.dificultad))
+        nodo_dificultad = categorias.raiz.agregar_hijo(
+            NodoGeneral(recorrido.dificultad)
+        )
 
     nodo_lugar = nodo_dificultad.buscar_hijo(recorrido.nombre)
-    if nodo_lugar is None:
-        nodo_lugar = nodo_dificultad.agregar_hijo(NodoGeneral(recorrido.nombre))
 
-    nodo_lugar.agregar_hijo(NodoGeneral(str(recorrido.distancia_km) + " km", recorrido))
+    if nodo_lugar is None:
+        nodo_lugar = nodo_dificultad.agregar_hijo(
+            NodoGeneral(recorrido.nombre)
+        )
+
+    nodo_lugar.agregar_hijo(
+        NodoGeneral(str(recorrido.distancia_km) + " km", recorrido)
+    )
 
 # Menú principal
 while True:
@@ -70,6 +83,8 @@ while True:
     print("4. Próximas carreras")
     print("5. Explorar categorías")
     print("6. Ranking de mejores ritmos")
+    print("7. Recomendar recorridos")
+    print("8. Explorar conexiones entre recorridos")
     print("0. Salir")
     
     opcion = input("Seleccione una opción: ")
@@ -124,7 +139,7 @@ while True:
         print("   Lugar: Av. 9 de Julio y Perón, CABA")
 
 
-    # 5. Explorar categorías con el arbol general
+    # 5. Explorar categorías con el árbol general
     elif opcion == "5":
         while True:
             print("\n--- EXPLORAR CATEGORÍAS ---")
@@ -190,12 +205,91 @@ while True:
                 break
 
             print(
-                puesto, "-",
-                mejor.lugar,
-                "- Distancia:", mejor.distancia_km, "km",
-                "- Ritmo:", mostrar_ritmo(mejor.ritmo), "min/km"
-            )
+    puesto, "-",
+    mejor.lugar,
+    "- Distancia:", mejor.distancia_km, "km",
+    "- Ritmo:", mostrar_ritmo(mejor.ritmo), "min/km"
+)
 
+    # 7. Recomendar recorridos con el grafo
+    elif opcion == "7":
+        print("\n--- RECOMENDAR RECORRIDOS ---")
+
+        for r in grafo.vertices.values():
+            print(r.id, "-", r.nombre, "-", r.distancia_km, "km")
+
+        try:
+            id_recorrido = int(input("\nSeleccione un recorrido: "))
+
+            if id_recorrido in grafo.vertices:
+                relacionados = grafo.vecinos(id_recorrido)
+
+                if relacionados:
+                    print("\nRecorridos recomendados:")
+
+                    for r in relacionados:
+                        print("-", r.nombre, "-", r.distancia_km, "km", "-", r.dificultad)
+                else:
+                    print("No hay recorridos relacionados.")
+            else:
+                print("El recorrido no existe.")
+
+        except ValueError:
+            print("Debe ingresar un número válido.")
+
+    # 8. Exploracion de recorridos con BFS y DFS
+    elif opcion == "8":
+        print("\n--- EXPLORAR CONEXIONES ---")
+        print("1. Buscar una progresion de recorridos (BFS)")
+        print("2. Explorar recorridos conectados (DFS)")
+        print("0. Volver")
+
+        sub_opcion = input("Seleccione una opcion: ")
+
+        if sub_opcion == "1" or sub_opcion == "2":
+
+            for r in grafo.vertices.values():
+                print(r.id, "-", r.nombre, "-", r.distancia_km, "km")
+
+            try:
+                inicio = int(input("\nSeleccione el recorrido inicial: "))
+
+                if inicio not in grafo.vertices:
+                    print("El recorrido no existe.")
+
+                elif sub_opcion == "1":
+                    destino = int(input("Seleccione el recorrido final: "))
+
+                    camino = grafo.bfs(inicio, destino)
+
+                    if camino:
+                        print("\n--- PROGRESION DE RECORRIDOS ---")
+
+                        for id_recorrido in camino:
+                            r = grafo.vertices[id_recorrido]
+                            print("-", r.nombre, "-", r.distancia_km, "km")
+
+                        print("Cantidad de conexiones:", len(camino) - 1)
+                    else:
+                        print("No existe un camino entre los recorridos.")
+
+                elif sub_opcion == "2":
+                    resultado = grafo.dfs(inicio)
+
+                    print("\n--- RECORRIDOS CONECTADOS ---")
+
+                    for id_recorrido in resultado:
+                        r = grafo.vertices[id_recorrido]
+                        print("-", r.nombre, "-", r.distancia_km, "km")
+
+                    print("Total de recorridos visitados:", len(resultado))
+
+            except ValueError:
+                print("Debe ingresar un numero valido.")
+
+        elif sub_opcion != "0":
+            print("Opcion invalida.")
+            
     # 0. Salir
     elif opcion == "0":
         print("¡Hasta luego!")
