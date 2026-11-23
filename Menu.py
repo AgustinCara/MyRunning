@@ -85,6 +85,7 @@ while True:
     print("6. Ranking de mejores ritmos")
     print("7. Recomendar recorridos")
     print("8. Explorar conexiones entre recorridos")
+    print("9. Buscar progresión de menor costo")
     print("0. Salir")
     
     opcion = input("Seleccione una opción: ")
@@ -289,7 +290,34 @@ while True:
 
         elif sub_opcion != "0":
             print("Opcion invalida.")
-            
+  
+    # 9. Buscar progresión de menor costo con Dijkstra
+    elif opcion == "9":
+        print("\n--- PROGRESIÓN DE MENOR COSTO ---")
+
+        for r in grafo.vertices.values():
+            print(r.id, "-", r.nombre, "-", r.distancia_km, "km")
+
+        try:
+            inicio = int(input("\nSeleccione el recorrido inicial: "))
+            destino = int(input("Seleccione el recorrido final: "))
+
+            camino, costo = grafo.dijkstra(inicio, destino)
+
+            if camino:
+                print("\n--- CAMINO ENCONTRADO ---")
+
+                for id_recorrido in camino:
+                    r = grafo.vertices[id_recorrido]
+                    print("-", r.nombre, "-", r.distancia_km, "km")
+
+                print("Costo total:", round(costo, 2), "km de diferencia acumulada")
+            else:
+                print("No existe un camino entre los recorridos.")
+
+        except ValueError:
+            print("Debe ingresar un número válido.")
+
     # 0. Salir
     elif opcion == "0":
         print("¡Hasta luego!")
