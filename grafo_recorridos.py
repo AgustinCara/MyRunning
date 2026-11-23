@@ -94,3 +94,51 @@ class GrafoRecorridos:
         explorar(id_inicio)
         return resultado
 
+
+    # TP9 - Camino de menor costo (Dijkstra)
+    def dijkstra(self, id_inicio, id_destino):
+        if id_inicio not in self.vertices or id_destino not in self.vertices:
+            return [], float("inf")
+
+        distancias = {id_vertice: float("inf") for id_vertice in self.vertices}
+        distancias[id_inicio] = 0
+
+        anteriores = {id_inicio: None}
+        pendientes = set(self.vertices)
+
+        while pendientes:
+            actual = min(pendientes, key=lambda id: distancias[id])
+
+            if distancias[actual] == float("inf"):
+                break
+
+            if actual == id_destino:
+                break
+
+            pendientes.remove(actual)
+
+            for vecino in self.adyacencia[actual]:
+                costo = abs(
+                    self.vertices[actual].distancia_km
+                    - self.vertices[vecino].distancia_km
+                )
+
+                nueva_distancia = distancias[actual] + costo
+
+                if vecino in pendientes and nueva_distancia < distancias[vecino]:
+                    distancias[vecino] = nueva_distancia
+                    anteriores[vecino] = actual
+
+        if distancias[id_destino] == float("inf"):
+            return [], float("inf")
+
+        camino = []
+        actual = id_destino
+
+        while actual is not None:
+            camino.append(actual)
+            actual = anteriores[actual]
+
+        camino.reverse()
+
+        return camino, distancias[id_destino]
