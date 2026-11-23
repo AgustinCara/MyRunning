@@ -95,9 +95,17 @@ while True:
         fecha = input("Fecha (DD/MM/AAAA): ")
         distancia = float(input("Distancia en km: "))
         tiempo = float(input("Tiempo en min: "))
+        frecuencia = int(input("Frecuencia cardíaca promedio: "))
         lugar = input("Lugar: ")
 
-        nuevo = {"fecha": fecha, "distancia": distancia, "tiempo": tiempo, "lugar": lugar}
+        nuevo = {
+            "fecha": fecha,
+            "distancia": distancia,
+            "tiempo": tiempo,
+            "hr_promedio": frecuencia,
+            "lugar": lugar
+        }
+
         entrenamientos.append(nuevo)
         print("¡Entrenamiento guardado con éxito!")
 
