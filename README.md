@@ -12,12 +12,37 @@ Proyecto práctico para **Estructuras de Datos y Algoritmos en Python**.
 
 ## 📂 Organización de los Archivos
 
-El proyecto está separado en dos archivos principales:
+My Running está organizado en distintos archivos de Python, que permiten separar las funcionalidades del programa y las estructuras de datos utilizadas.
 
-- **`Index.py`**: Contiene las clases del sistema (`Entrenamiento`, `Recorrido` y `GestorMyRunning`).
-- **`menu.py`**: Contiene el menú interactivo, los datos y las opciones del programa.
+- **`Index.py`**: contiene las clases principales del sistema (`Entrenamiento`, `Recorrido` y `GestorMyRunning`).
+- **`Menu.py`**: contiene el menú interactivo y permite acceder a las funcionalidades del programa.
+- **`arbol_recorridos.py`**: implementa el árbol binario de búsqueda (ABB).
+- **`arbol_avl.py`**: implementa el árbol AVL.
+- **`arbol_general.py`**: organiza los recorridos por dificultad, lugar y distancia.
+- **`heap_entrenamientos.py`**: permite obtener un ranking de los mejores ritmos.
+- **`grafo_recorridos.py`**: contiene el grafo y los algoritmos BFS, DFS y Dijkstra.
+
+También incorporamos archivos de prueba para comprobar las distintas estructuras y una carpeta `docs` con documentación y evidencias del funcionamiento del programa.
 
 ---
+
+## ▶️ Cómo ejecutar My Running
+
+Para utilizar el programa es necesario tener Python 3 instalado.
+
+1. Descargar el repositorio de GitHub en formato ZIP.
+2. Descomprimir el archivo en la computadora.
+3. Abrir la carpeta del proyecto en Visual Studio Code.
+4. Abrir una terminal desde esa carpeta.
+5. Ejecutar el siguiente comando:
+
+```bash
+python Menu.py
+```
+
+Una vez iniciado, se muestra el menú principal de My Running, desde el cual se pueden registrar entrenamientos, consultar estadísticas, buscar recorridos, explorar estructuras de datos y utilizar los algoritmos del grafo.
+
+Para seleccionar una funcionalidad, se ingresa el número de la opción correspondiente. Para finalizar el programa, se utiliza la opción 0.
 
 ## 🧱 Clases del Dominio (`Index.py`)
 
@@ -41,8 +66,8 @@ class Recorrido:
 
 class GestorMyRunning:
     def __init__(self):
-        self.entrenamientos = [] 
-        self.carreras = []       
+        self.entrenamientos = []
+        self.carreras = []
         self.recorridos = []
 ```
 
@@ -79,7 +104,6 @@ Los tiempos pueden variar según la computadora donde se realice la prueba.
 En las pruebas vimos que la búsqueda secuencial tarda más a medida que aumenta la cantidad de recorridos, porque puede tener que revisar toda la lista.
 
 La búsqueda binaria resultó más rápida porque en cada paso descarta una parte de los recorridos. Para utilizarla, los datos tienen que estar ordenados por distancia.
-
 
 ---
 
@@ -356,19 +380,16 @@ Archivos incorporados:
 
 ## TP8 - Recorridos BFS y DFS
 
-Se implementaron dos algoritmos de recorrido de grafos
-para explorar las conexiones entre los circuitos de running.
+Se implementaron dos algoritmos de recorrido de grafos para explorar las conexiones entre los circuitos de running.
 
 ### BFS - Búsqueda por anchura
 
-Permite encontrar el camino con la menor cantidad de
-conexiones entre dos recorridos.
+Permite encontrar el camino con la menor cantidad de conexiones entre dos recorridos.
 
 Utiliza una cola FIFO para explorar los vértices por niveles.
 
 Caso de uso:
-Un corredor que realiza 3 km quiere encontrar una
-progresión de recorridos hasta llegar a los 8 km.
+Un corredor que realiza 3 km quiere encontrar una progresión de recorridos hasta llegar a los 8 km.
 
 Resultado:
 Parque Finky (3 km)
@@ -378,15 +399,12 @@ Parque Finky (3 km)
 
 ### DFS - Búsqueda por profundidad
 
-Permite explorar todos los recorridos relacionados
-directa o indirectamente con un recorrido inicial.
+Permite explorar todos los recorridos relacionados directa o indirectamente con un recorrido inicial.
 
-Se implementó mediante recursividad y un conjunto
-de vértices visitados para evitar ciclos.
+Se implementó mediante recursividad y un conjunto de vértices visitados para evitar ciclos.
 
 Caso de uso:
-Explorar todos los recorridos conectados con el
-Circuito urbano de Longchamps.
+Explorar todos los recorridos conectados con el Circuito urbano de Longchamps.
 
 Resultado:
 13 recorridos visitados sin repeticiones.
@@ -400,11 +418,9 @@ Resultado:
 V representa la cantidad de vértices.
 A representa la cantidad de aristas.
 
-BFS conviene cuando buscamos un camino con la menor
-cantidad de conexiones en un grafo no ponderado.
+BFS conviene cuando buscamos un camino con la menor cantidad de conexiones en un grafo no ponderado.
 
-DFS conviene cuando queremos explorar en profundidad
-todos los vértices alcanzables desde un punto inicial.
+DFS conviene cuando queremos explorar en profundidad todos los vértices alcanzables desde un punto inicial.
 
 ### Pruebas realizadas
 
@@ -421,3 +437,55 @@ todos los vértices alcanzables desde un punto inicial.
 - Menu.py (actualizado).
 - prueba_tp8.py (nuevo).
 
+---
+
+## TP9 - Dijkstra: progresión de menor costo
+
+En esta etapa incorporamos el algoritmo de **Dijkstra** para buscar una progresión entre dos recorridos que tenga el menor costo acumulado. Aprovechamos el grafo desarrollado en los TP7 y TP8.
+
+### Criterio de costo
+
+Los recorridos están conectados cuando la diferencia entre sus distancias es menor o igual a 2 km. Para Dijkstra, el costo de cada conexión se calcula como el **valor absoluto de la diferencia de kilómetros** entre los dos recorridos.
+
+Este costo representa cambios de distancia de entrenamiento, **no la distancia física entre parques**. Dijkstra minimiza la suma de estos costos y puede encontrar varios caminos distintos con el mismo costo mínimo.
+
+### Implementación
+
+- Agregamos el método `dijkstra()` a `grafo_recorridos.py`.
+- Incorporamos la opción **9. Buscar progresión de menor costo** en `Menu.py`.
+- Creamos `prueba_dijkstra.py` para comprobar el algoritmo de forma independiente.
+
+La implementación utiliza distancias acumuladas, un conjunto de vértices pendientes y la reconstrucción del camino a partir de sus predecesores.
+
+### Pruebas realizadas
+
+**Prueba independiente:** con recorridos de 3, 5 y 7 km, el algoritmo devolvió el camino `[1, 2, 3]` y un costo total de `4.0`.
+
+**Prueba desde el menú:** seleccionamos el recorrido **2 (Quinta Rocca - UNaB, 3 km)** como inicio y el **13 (Circuito urbano de Longchamps, 8 km)** como destino.
+
+El programa devolvió esta progresión:
+
+```text
+Quinta Rocca - UNaB - 3.0 km
+Parque Finky - 5.0 km
+Parque de Lomas - 7.0 km
+Circuito urbano de Longchamps - 8.0 km
+Costo total: 5.0 km de diferencia acumulada
+```
+
+![Resultado de la prueba de Dijkstra](docs/evidencias/dijkstra_camino.png)
+
+También probamos un identificador de destino inexistente (`99`). El programa mostró un mensaje indicando que no existía un camino y regresó al menú sin cerrarse.
+
+### Comparación con BFS
+
+- **BFS** encuentra un camino con la menor cantidad de conexiones en un grafo no ponderado.
+- **Dijkstra** encuentra un camino con el menor costo acumulado cuando las conexiones tienen costos no negativos.
+
+### Complejidad
+
+Como esta implementación selecciona el siguiente vértice mediante `min()` sobre el conjunto de pendientes, su complejidad temporal es **O(V² + E)**, donde V es la cantidad de vértices y E la cantidad de aristas.
+
+### Conclusión
+
+Dijkstra nos permitió incorporar una búsqueda de progresiones según un criterio de costo, reutilizando el grafo existente y manteniendo las funcionalidades anteriores. Las pruebas confirmaron que devuelve un camino válido con su costo acumulado y que contempla identificadores inexistentes.
